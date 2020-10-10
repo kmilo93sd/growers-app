@@ -1,0 +1,9 @@
+{
+  "default": {
+    "backgroundColor": "#FCFAF9",
+    "primaryColor": "#EC0B43",
+    "disabledColor": "#b2b2b2",
+    "white": "#ffffff",
+    "black": "#000000"
+  }
+}
