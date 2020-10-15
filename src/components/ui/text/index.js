@@ -3,7 +3,7 @@ import {Text as NativeText} from 'react-native';
 
 const Text = ({...props}) => {
   return (
-    <NativeText style={{color: props.color}} size={{fontSize: props.fontSize}}>
+    <NativeText style={{color: props.color, fontSize: props.size}}>
       {props.children}
     </NativeText>
   );
