@@ -1,7 +1,6 @@
 import themes from './themes.json';
 
 const useTheme = () => {
-
   const getTheme = () => {
     return themes.default;
   };
