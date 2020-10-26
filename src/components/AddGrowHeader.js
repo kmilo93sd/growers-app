@@ -11,7 +11,7 @@ const AddGrowHeader = ({...props}) => {
   const onSave = async () => {
     try {
       await saveGrow();
-      navigation.navigate('Home');
+      navigation.navigate('Inicio');
     } catch (error) {
       alert('Error al crear');
     }
