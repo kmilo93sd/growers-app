@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "562154326656",
+    "firebase_url": "https://growers-e36d9.firebaseio.com",
+    "project_id": "growers-e36d9",
+    "storage_bucket": "growers-e36d9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:562154326656:android:491e7fb7d95296507ab465",
+        "android_client_info": {
+          "package_name": "growers.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "562154326656-bg1jlcjkuhb3vq9lon4m3fhqonajpifb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLcI6xQd5n6T1rgHAf7SYomJ3TskkquOA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "562154326656-bg1jlcjkuhb3vq9lon4m3fhqonajpifb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,7 +1,8 @@
-import React from 'react';
-import {StyleSheet, View, TouchableOpacity} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import React, {useContext} from 'react';
+import {GrowContext} from '../providers/grow';
 import ImagePicker from 'react-native-image-picker';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 const BottomActionsBar = () => {
@@ -16,17 +17,24 @@ const BottomActionsBar = () => {
     },
   };
 
+  const {createGrow} = useContext(GrowContext);
+
   const handleSelection = (response) => {
     if (response.didCancel) {
       console.log('User cancelled image picker');
+      return;
     }
     if (response.error) {
       console.log('ImagePicker Error: ', response.error);
       alert('Ha ocurrido un problema');
     }
-    // You can also display the image using data:
-    const source = {uri: 'data:image/jpeg;base64,' + response.data};
-    navigation.navigate('Añadir', {image: source});
+    console.log('SOURCE', Object.keys(response));
+    const source = {
+      uri: 'data:image/jpeg;base64,' + response.data,
+      path: response.path,
+    };
+    createGrow(source);
+    navigation.navigate('Añadir');
   };
 
   const onAddPhoto = () => {

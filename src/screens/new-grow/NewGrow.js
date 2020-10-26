@@ -1,36 +1,21 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import Screen from '../../components/ui/screens/screen';
-import {useRoute} from '@react-navigation/native';
 import {Image, StyleSheet, View} from 'react-native';
 import Text from '../../components/ui/text';
 import TextArea from '../../components/ui/text-area/TextArea';
-import {GrowContext} from '../../providers/grow/GrowContext';
+import {GrowContext} from '../../providers/grow';
 
 const NewGrow = () => {
-  const route = useRoute();
-  const image = route.params.image;
-  const {newGrow, setNewGrow} = useContext(GrowContext);
-
-  
-  const updateImage = (aImage) => {
-    setNewGrow({...newGrow, image: aImage});
-  };
-
-  const updateDescription = (aDescription) => {
-    setNewGrow({...newGrow, description: aDescription});
-  };
-
-  useEffect(() => {
-    updateImage(image);
-  });
+  const {grow, updateDescription} = useContext(GrowContext);
+  const onChange = (text) => updateDescription(text);
 
   return (
     <Screen scroll>
       <View style={styles.container}>
-        <Image style={styles.image} source={newGrow.image} />
+        <Image style={styles.image} source={grow.image} />
         <View>
           <Text size={24}>Añadir notas:</Text>
-          <TextArea value={newGrow.description} onChange={updateDescription} />
+          <TextArea value={grow.description} onChange={onChange} />
         </View>
       </View>
     </Screen>

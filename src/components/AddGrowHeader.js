@@ -1,32 +1,29 @@
 import React, {useContext} from 'react';
 import {Button, View, TextInput} from 'react-native';
-import {GrowContext} from '../providers/grow/GrowContext';
+import {GrowContext} from '../providers/grow';
+import {useNavigation} from '@react-navigation/native';
 
 const AddGrowHeader = ({...props}) => {
-  const {newGrow, setNewGrow} = useContext(GrowContext);
-  const onTitleUpdate = (newTitle) => setNewGrow({...newGrow, title: newTitle});
+  const {grow, updateTitle, saveGrow} = useContext(GrowContext);
+  const navigation = useNavigation();
+  const onChange = (event) => updateTitle(event.nativeEvent.text);
+
+  const onSave = async () => {
+    try {
+      await saveGrow();
+      navigation.navigate('Home');
+    } catch (error) {
+      alert('Error al crear');
+    }
+  };
+
   return (
     <View style={{flex: 1, flexDirection: 'row'}}>
       <View style={{flex: 3}}>
-        <TextInput value={newGrow.title} onChange={onTitleUpdate} />
+        <TextInput value={grow.title} onChange={onChange} />
       </View>
       <View style={{flex: 1}}>
-        <Button
-          onPress={() => {
-            const date = new Date();
-            const timestamp = date.toString();
-            setNewGrow({
-              ...newGrow,
-              id: '',
-              createdAt: timestamp,
-              updatedAt: timestamp,
-            });
-            console.log('crear', newGrow);
-            alert('creado');
-          }}
-          title="Guardar"
-          color="#32a852"
-        />
+        <Button onPress={() => onSave()} title="Guardar" color="#32a852" />
       </View>
     </View>
   );
