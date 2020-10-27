@@ -1,5 +1,4 @@
 import React from 'react';
-import {View} from 'react-native';
 import Title from '../../components/ui/title';
 import Screen from '../../components/ui/screens/screen';
 import {Button} from 'react-native';
@@ -12,27 +11,34 @@ const Auth = () => {
 
   const onGoogleButtonPress = async () => {
     // Get the users ID token
-    const {idToken} = await GoogleSignin.signIn();
+    try {
+      const {idToken} = await GoogleSignin.signIn();
 
-    // Create a Google credential with the token
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+      // Create a Google credential with the token
+      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-    // Sign-in the user with the credential
-    return auth().signInWithCredential(googleCredential);
+      // Sign-in the user with the credential
+      return auth().signInWithCredential(googleCredential);
+    } catch (error) {
+      alert(`Error: ${error.message}`);
+    }
   };
 
   return (
-    <View>
-      <Screen>
-        <Title>Iniciar sesión</Title>
-        <Button
-          title="Google Sign-In"
-          onPress={() =>
-            onGoogleButtonPress().then(() => navigation.navigate('Inicio'))
-          }
-        />
-      </Screen>
-    </View>
+    <Screen
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      <Title>Iniciar sesión</Title>
+      <Button
+        title="Google Sign-In"
+        onPress={() =>
+          onGoogleButtonPress().then(() => navigation.navigate('Inicio'))
+        }
+      />
+    </Screen>
   );
 };
 

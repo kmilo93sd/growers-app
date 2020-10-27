@@ -23,7 +23,11 @@ const App = () => {
     <GrowProvider>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Auth" component={Auth} />
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="Auth"
+            component={Auth}
+          />
           <Stack.Screen name="Inicio" component={Grows} />
           <Stack.Screen name="Detalles" component={GrowDetails} />
           <Stack.Screen

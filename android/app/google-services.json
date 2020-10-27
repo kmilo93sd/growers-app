@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "562154326656-vjah504m0pl8glikls1n550b0otjjv40.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "growers.app",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
           "client_id": "562154326656-bg1jlcjkuhb3vq9lon4m3fhqonajpifb.apps.googleusercontent.com",
           "client_type": 3
         }
