@@ -3,10 +3,10 @@ import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 
 import Text from '../../components/ui/text';
 import Title from '../../components/ui/title';
-import {getGrows} from '../../api/mocks/growsMock';
 import {useNavigation} from '@react-navigation/native';
 import Screen from '../../components/ui/screens/screen';
 import BottomActionsBar from '../../components/BottomActionsBar';
+import {getGrows} from '../../api/grows';
 
 const Grows = () => {
   const [grows, setGrows] = useState([]);
@@ -18,9 +18,11 @@ const Grows = () => {
   useEffect(() => {
     getGrows()
       .then((response) => {
+        console.log('GROWS', response);
         setGrows(response.data);
       })
       .catch((error) => {
+        console.log('ERROR', error);
         alert('Error al cargar los cultivos');
       })
       .finally(() => {

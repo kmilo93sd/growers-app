@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import GrowDetails from './screens/grow-details/GrowDetails';
@@ -19,8 +19,26 @@ GoogleSignin.configure({
 const Stack = createStackNavigator();
 
 const App = () => {
-  return (
-    <GrowProvider>
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+  console.log('USER', user);
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) {
+      setInitializing(false);
+    }
+  }
+
+  useEffect(() => {
+    return auth().onAuthStateChanged(onAuthStateChanged); // unsubscribe on unmount
+  }, [user]);
+
+  if (initializing) {
+    return null;
+  }
+
+  if (!user) {
+    return (
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
@@ -28,6 +46,15 @@ const App = () => {
             name="Auth"
             component={Auth}
           />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
+
+  return (
+    <GrowProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
           <Stack.Screen name="Inicio" component={Grows} />
           <Stack.Screen name="Detalles" component={GrowDetails} />
           <Stack.Screen
