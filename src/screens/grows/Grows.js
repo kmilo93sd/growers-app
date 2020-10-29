@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 
 import Text from '../../components/ui/text';
@@ -27,7 +27,7 @@ const Grows = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  });
+  }, [grows, isLoading]);
 
   if (isLoading) {
     return (
@@ -36,6 +36,7 @@ const Grows = () => {
       </Screen>
     );
   }
+  console.log('grows', grows);
 
   return (
     <View style={{height: '100%'}}>
@@ -49,7 +50,7 @@ const Grows = () => {
               <Image
                 style={styles.image}
                 source={{
-                  uri: grow.cover,
+                  uri: grow.image,
                 }}
               />
             </View>

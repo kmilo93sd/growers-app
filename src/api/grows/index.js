@@ -22,7 +22,7 @@ export const addGrow = async ({id, image, ...grow}) => {
 export const getGrows = async () => {
   try {
     const response = await firestore().collection(TABLE_NAME).get();
-    return response.docs;
+    return response.docs.map(({_data}) => _data);
   } catch (error) {
     throw new Error(`Error ${error.message}`);
   }
