@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 
 import Text from '../../components/ui/text';
@@ -18,8 +18,7 @@ const Grows = () => {
   useEffect(() => {
     getGrows()
       .then((response) => {
-        console.log('GROWS', response);
-        setGrows(response.data);
+        setGrows(response);
       })
       .catch((error) => {
         console.log('ERROR', error);
@@ -39,7 +38,7 @@ const Grows = () => {
   }
 
   return (
-    <View>
+    <View style={{height: '100%'}}>
       <Screen scroll={true}>
         {grows.map((grow) => (
           <TouchableOpacity
