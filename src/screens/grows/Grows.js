@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
-
 import Text from '../../components/ui/text';
 import Title from '../../components/ui/title';
 import {useNavigation} from '@react-navigation/native';
@@ -13,21 +12,25 @@ const Grows = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigation = useNavigation();
 
+  const fetchGrows = async () => {
+    try {
+      console.log('running');
+      const response = await getGrows();
+      setGrows(response);
+    } catch (error) {
+      console.log('ERROR', error);
+      alert('Faaaaaakkk');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchGrows();
+  }, []);
+
   const onPress = (growId = '') =>
     navigation.navigate('Detalles', {growId: growId});
-  useEffect(() => {
-    getGrows()
-      .then((response) => {
-        setGrows(response);
-      })
-      .catch((error) => {
-        console.log('ERROR', error);
-        alert('Error al cargar los cultivos');
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, [grows, isLoading]);
 
   if (isLoading) {
     return (

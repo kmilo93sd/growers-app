@@ -55,6 +55,7 @@ const App = () => {
     <GrowProvider>
       <NavigationContainer>
         <Stack.Navigator>
+          {console.log('Running app')}
           <Stack.Screen name="Inicio" component={Grows} />
           <Stack.Screen name="Detalles" component={GrowDetails} />
           <Stack.Screen

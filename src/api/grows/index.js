@@ -1,6 +1,6 @@
-import firestore from '@react-native-firebase/firestore';
-import storage from '@react-native-firebase/storage';
 import {nanoid} from 'nanoid';
+import storage from '@react-native-firebase/storage';
+import firestore from '@react-native-firebase/firestore';
 
 const TABLE_NAME = 'Grows';
 
@@ -22,7 +22,16 @@ export const addGrow = async ({id, image, ...grow}) => {
 export const getGrows = async () => {
   try {
     const response = await firestore().collection(TABLE_NAME).get();
-    return response.docs.map(({_data}) => _data);
+    const grows = response.docs.map(({_data}) => _data);
+    return await Promise.all(
+      grows.map(async (grow) => {
+        const imageUrl = await storage().ref(grow.image).getDownloadURL();
+        return {
+          ...grow,
+          image: imageUrl,
+        };
+      }),
+    );
   } catch (error) {
     throw new Error(`Error ${error.message}`);
   }
