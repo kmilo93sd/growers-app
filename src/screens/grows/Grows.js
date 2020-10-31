@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Text from '../../components/ui/text';
 import Title from '../../components/ui/title';
@@ -6,9 +6,10 @@ import {useNavigation} from '@react-navigation/native';
 import Screen from '../../components/ui/screens/screen';
 import BottomActionsBar from '../../components/BottomActionsBar';
 import {getGrows} from '../../api/grows';
+import {GrowContext} from '../../providers/grow';
 
 const Grows = () => {
-  const [grows, setGrows] = useState([]);
+  const {grows, setGrows} = useContext(GrowContext);
   const [isLoading, setIsLoading] = useState(true);
   const navigation = useNavigation();
 

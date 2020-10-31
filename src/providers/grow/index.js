@@ -16,8 +16,13 @@ const GrowProvider = ({...props}) => {
     createdAt: '',
     updatedAt: '',
   };
-  const [grow, setGrow] = useState(initialGrow);
 
+  const initialGrowsState = {
+    grows: [],
+  };
+
+  const [grow, setGrow] = useState(initialGrow);
+  const [grows, setGrows] = useState(initialGrowsState);
   const createGrow = (image) => {
     if (!image) {
       throw new Error('Image is required to create a grow.');
@@ -37,12 +42,21 @@ const GrowProvider = ({...props}) => {
   const updateDescription = (description) => setGrow({...grow, description});
 
   const saveGrow = async () => {
-    await addGrow(grow);
+    const addedGrow = await addGrow(grow);
+    setGrows((prevState) => [...prevState, addedGrow]);
   };
 
   return (
     <GrowContext.Provider
-      value={{grow, createGrow, updateDescription, updateTitle, saveGrow}}
+      value={{
+        grow,
+        createGrow,
+        updateDescription,
+        updateTitle,
+        saveGrow,
+        grows,
+        setGrows,
+      }}
       {...props}>
       {props.children}
     </GrowContext.Provider>

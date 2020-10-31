@@ -13,16 +13,23 @@ const uploadFile = async (image) => {
 
 export const addGrow = async ({id, image, ...grow}) => {
   const imagePath = await uploadFile(image.path);
-  await firestore()
-    .collection(TABLE_NAME)
-    .doc(id)
-    .set({...grow, image: imagePath});
+  const newGrows = {...grow, id: id, image: imagePath};
+  await firestore().collection(TABLE_NAME).doc(id).set(newGrows);
+  return {
+    ...newGrows,
+    image: await storage().ref(newGrows.image).getDownloadURL(),
+  };
 };
 
 export const getGrows = async () => {
   try {
     const response = await firestore().collection(TABLE_NAME).get();
-    const grows = response.docs.map(({_data}) => _data);
+    const grows = response.docs.map((data) => {
+      return {
+        ...data.data(),
+        id: data.id,
+      };
+    });
     return await Promise.all(
       grows.map(async (grow) => {
         const imageUrl = await storage().ref(grow.image).getDownloadURL();
@@ -38,5 +45,10 @@ export const getGrows = async () => {
 };
 
 export const getGrowById = async (growId) => {
-  return await firestore().collection(TABLE_NAME).doc(growId).get();
+  const response = await firestore().collection(TABLE_NAME).doc(growId).get();
+  const imageUrl = await storage().ref(response._data.image).getDownloadURL();
+  return {
+    ...response._data,
+    image: imageUrl,
+  };
 };

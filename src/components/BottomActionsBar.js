@@ -28,7 +28,6 @@ const BottomActionsBar = () => {
       console.log('ImagePicker Error: ', response.error);
       alert('Ha ocurrido un problema');
     }
-    console.log('SOURCE', Object.keys(response));
     const source = {
       uri: 'data:image/jpeg;base64,' + response.data,
       path: response.path,
