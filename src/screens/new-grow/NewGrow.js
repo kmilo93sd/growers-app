@@ -1,7 +1,6 @@
 import React, {useContext} from 'react';
 import Screen from '../../components/ui/screens/screen';
 import {Image, StyleSheet, View} from 'react-native';
-import Text from '../../components/ui/text';
 import TextArea from '../../components/ui/text-area/TextArea';
 import {GrowContext} from '../../providers/grow';
 
