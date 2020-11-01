@@ -22,7 +22,12 @@ const AddGrowHeader = ({...props}) => {
       <View style={{flex: 3}}>
         <TextInput value={grow.title} onChange={onChange} />
       </View>
-      <View style={{flex: 1}}>
+      <View
+        style={{
+          flex: 2,
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
         <Button onPress={() => onSave()} title="Guardar" color="#32a852" />
       </View>
     </View>
