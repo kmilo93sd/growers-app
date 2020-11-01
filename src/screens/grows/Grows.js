@@ -7,6 +7,7 @@ import Screen from '../../components/ui/screens/screen';
 import BottomActionsBar from '../../components/BottomActionsBar';
 import {getGrows} from '../../api/grows';
 import {GrowContext} from '../../providers/grow';
+import DateText from '../../components/ui/date/DateText';
 
 const Grows = () => {
   const {grows, setGrows} = useContext(GrowContext);
@@ -61,7 +62,7 @@ const Grows = () => {
             <View style={styles.basicInfo}>
               <Title>{grow.title}</Title>
               <Text>{grow.strain}</Text>
-              <Text>7 semanas</Text>
+              <DateText date={grow.createdAt} />
             </View>
           </TouchableOpacity>
         ))}
