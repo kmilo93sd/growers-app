@@ -1,13 +1,13 @@
 import React from 'react';
 import {TextInput, View, StyleSheet} from 'react-native';
 
-const TextArea = ({value, onChange}) => {
+const TextArea = ({value, onChange, ...props}) => {
   return (
     <View style={styles.textAreaContainer}>
       <TextInput
+        {...props}
         style={styles.textArea}
         underlineColorAndroid="transparent"
-        placeholder="Type something"
         placeholderTextColor="grey"
         numberOfLines={10}
         multiline={true}

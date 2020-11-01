@@ -14,8 +14,11 @@ const NewGrow = () => {
       <View style={styles.container}>
         <Image style={styles.image} source={grow.image} />
         <View>
-          <Text size={24}>Añadir notas:</Text>
-          <TextArea value={grow.description} onChange={onChange} />
+          <TextArea
+            value={grow.description}
+            placeholder={'Añade algunas notas ...'}
+            onChange={onChange}
+          />
         </View>
       </View>
     </Screen>
