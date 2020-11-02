@@ -1,9 +1,9 @@
 import React, {useContext} from 'react';
-import {GrowContext} from '../providers/grow';
 import ImagePicker from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {GrowsContext} from '../providers/grows';
 
 const BottomActionsBar = () => {
   const navigation = useNavigation();
@@ -17,7 +17,7 @@ const BottomActionsBar = () => {
     },
   };
 
-  const {createGrow} = useContext(GrowContext);
+  const {createGrow} = useContext(GrowsContext);
 
   const handleSelection = (response) => {
     if (response.didCancel) {

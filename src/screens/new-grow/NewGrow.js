@@ -1,22 +1,28 @@
 import React, {useContext} from 'react';
 import Screen from '../../components/ui/screens/screen';
-import {Image, StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, TextInput, View} from 'react-native';
 import TextArea from '../../components/ui/text-area/TextArea';
-import {GrowContext} from '../../providers/grow';
+import {GrowsContext} from '../../providers/grows';
 
 const NewGrow = () => {
-  const {grow, updateDescription} = useContext(GrowContext);
-  const onChange = (text) => updateDescription(text);
+  const {grow, updateTitle, updateDescription} = useContext(GrowsContext);
+  const onDescriptionChange = (text) => updateDescription(text);
+  const onTitleChange = (event) => updateTitle(event.nativeEvent.text);
 
   return (
     <Screen scroll>
       <View style={styles.container}>
         <Image style={styles.image} source={grow.image} />
         <View>
+          <TextInput
+            placeholder={'Titulo...'}
+            value={grow.title}
+            onChange={onTitleChange}
+          />
           <TextArea
             value={grow.description}
             placeholder={'Añade algunas notas ...'}
-            onChange={onChange}
+            onChange={onDescriptionChange}
           />
         </View>
       </View>

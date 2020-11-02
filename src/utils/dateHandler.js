@@ -6,6 +6,9 @@ export const parseDate = (date) => moment(date).format(format);
 
 export const now = () => moment().format(format);
 
+export const isAfter = (dateA, dateB) =>
+  moment(parseDate(dateA)).isBefore(parseDate(dateB));
+
 export const resolveTimeText = (date) => {
   const dateDifference = moment(date, 'DD MM YYYY hh:mm:ss').fromNow(true);
   const values = dateDifference.split(' ');

@@ -5,31 +5,13 @@ import Title from '../../components/ui/title';
 import {useNavigation} from '@react-navigation/native';
 import Screen from '../../components/ui/screens/screen';
 import BottomActionsBar from '../../components/BottomActionsBar';
-import {getGrows} from '../../api/grows';
-import {GrowContext} from '../../providers/grow';
 import DateText from '../../components/ui/date/DateText';
+import {GrowsContext} from '../../providers/grows';
+import {isAfter} from '../../utils/dateHandler';
 
 const Grows = () => {
-  const {grows, setGrows} = useContext(GrowContext);
-  const [isLoading, setIsLoading] = useState(true);
+  const {grows, isLoading} = useContext(GrowsContext);
   const navigation = useNavigation();
-
-  const fetchGrows = async () => {
-    try {
-      console.log('running');
-      const response = await getGrows();
-      setGrows(response);
-    } catch (error) {
-      console.log('ERROR', error);
-      alert('Faaaaaakkk');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchGrows();
-  }, []);
 
   const onPress = (growId = '') =>
     navigation.navigate('Detalles', {growId: growId});
@@ -41,31 +23,34 @@ const Grows = () => {
       </Screen>
     );
   }
-  console.log('grows', grows);
 
   return (
     <View style={{height: '100%'}}>
       <Screen scroll={true}>
-        {grows.map((grow) => (
-          <TouchableOpacity
-            key={grow.id}
-            style={styles.item}
-            onPress={() => onPress(grow.id)}>
-            <View style={styles.imageContainer}>
-              <Image
-                style={styles.image}
-                source={{
-                  uri: grow.image,
-                }}
-              />
-            </View>
-            <View style={styles.basicInfo}>
-              <Title>{grow.title}</Title>
-              <Text>{grow.strain}</Text>
-              <DateText date={grow.createdAt} />
-            </View>
-          </TouchableOpacity>
-        ))}
+        {grows
+          .sort((a, b) => {
+            return isAfter(b.updatedAt, a.updatedAt);
+          })
+          .map((grow) => (
+            <TouchableOpacity
+              key={grow.id}
+              style={styles.item}
+              onPress={() => onPress(grow.id)}>
+              <View style={styles.imageContainer}>
+                <Image
+                  style={styles.image}
+                  source={{
+                    uri: `file://${grow.image}`,
+                  }}
+                />
+              </View>
+              <View style={styles.basicInfo}>
+                <Title>{grow.title}</Title>
+                <Text>{grow.strain}</Text>
+                <DateText date={grow.createdAt} />
+              </View>
+            </TouchableOpacity>
+          ))}
       </Screen>
       <BottomActionsBar />
     </View>

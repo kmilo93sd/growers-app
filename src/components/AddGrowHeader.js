@@ -1,12 +1,11 @@
 import React, {useContext} from 'react';
-import {Button, View, TextInput} from 'react-native';
-import {GrowContext} from '../providers/grow';
+import {Button, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {GrowsContext} from '../providers/grows';
 
 const AddGrowHeader = ({...props}) => {
-  const {grow, updateTitle, saveGrow} = useContext(GrowContext);
+  const {saveGrow} = useContext(GrowsContext);
   const navigation = useNavigation();
-  const onChange = (event) => updateTitle(event.nativeEvent.text);
 
   const onSave = async () => {
     try {
@@ -19,9 +18,7 @@ const AddGrowHeader = ({...props}) => {
 
   return (
     <View style={{flex: 1, flexDirection: 'row'}}>
-      <View style={{flex: 3}}>
-        <TextInput value={grow.title} onChange={onChange} />
-      </View>
+      <View style={{flex: 3}} />
       <View
         style={{
           flex: 2,

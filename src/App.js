@@ -7,9 +7,9 @@ import Grows from './screens/grows/Grows';
 import NewGrow from './screens/new-grow/NewGrow';
 import AddGrowHeader from './components/AddGrowHeader';
 import Auth from './screens/auth/Auth';
-import {GrowProvider} from './providers/grow';
 import {GoogleSignin} from '@react-native-community/google-signin';
 import auth from '@react-native-firebase/auth';
+import {GrowsProvider} from './providers/grows';
 
 GoogleSignin.configure({
   webClientId:
@@ -21,7 +21,7 @@ const Stack = createStackNavigator();
 const App = () => {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
-  console.log('USER', user);
+
   function onAuthStateChanged(user) {
     setUser(user);
     if (initializing) {
@@ -52,10 +52,9 @@ const App = () => {
   }
 
   return (
-    <GrowProvider>
+    <GrowsProvider>
       <NavigationContainer>
         <Stack.Navigator>
-          {console.log('Running app')}
           <Stack.Screen name="Inicio" component={Grows} />
           <Stack.Screen name="Detalles" component={GrowDetails} />
           <Stack.Screen
@@ -65,7 +64,7 @@ const App = () => {
           />
         </Stack.Navigator>
       </NavigationContainer>
-    </GrowProvider>
+    </GrowsProvider>
   );
 };
 

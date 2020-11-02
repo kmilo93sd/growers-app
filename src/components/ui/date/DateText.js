@@ -9,7 +9,7 @@ const DateText = ({date}) => {
       color: '#999999',
     },
   };
-  console.log('DATE', date);
+
   return (
     <Text size={classes.font.fontSize} color={classes.font.color}>
       {resolveTimeText(date)}

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useRoute} from '@react-navigation/native';
 import {Image, View} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
@@ -9,47 +9,18 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Screen from '../../components/ui/screens/screen';
 import useTheme from '../../providers/theme';
 import BottomActionsBar from '../../components/BottomActionsBar';
-import {getGrowById} from '../../api/grows';
+import {GrowsContext} from '../../providers/grows';
 
 const GrowDetails = () => {
   const route = useRoute();
   const growId = route.params.growId || '';
-  console.log('GROWID', growId);
-  const [grow, setGrow] = useState({
-    id: '',
-    title: '',
-    image: '',
-    description: '',
-    createdAt: '',
-    updatedAt: '',
-  });
-  const [isLoading, setIsLoading] = useState(true);
-
   const theme = useTheme();
 
-  const fetchGrow = async (id) => {
-    try {
-      const response = await getGrowById(id);
-      setGrow(response);
-    } catch (error) {
-      console.log('ERROR', error);
-      alert('error al cargar el cultivo');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const {grow, getById} = useContext(GrowsContext);
 
   useEffect(() => {
-    fetchGrow(growId);
+    getById(growId);
   }, [growId]);
-
-  if (isLoading) {
-    return (
-      <Screen>
-        <Text>Cargando...</Text>
-      </Screen>
-    );
-  }
 
   return (
     <View>
@@ -89,7 +60,7 @@ const GrowDetails = () => {
           <Image
             style={{height: 300, width: '100%'}}
             source={{
-              uri: grow.image,
+              uri: `file://${grow.image}`,
             }}
           />
           <View style={{padding: 20}}>
